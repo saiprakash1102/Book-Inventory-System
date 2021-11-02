@@ -1,0 +1,110 @@
+<html>
+    <style>
+        body{
+            background-color:#E6E6FA;
+        }
+        #discounttable{
+            border-style:solid;
+            float:center;
+        }
+        h1{
+            color:#800080;
+            font-family:cursive;
+            text-align:center;
+        }
+        h2{
+            text-align:center;
+        }
+    </style>
+    <script>
+        function validate()
+        {
+            var bcats=document.getElementsByName("bookCategory");
+            var bcat;
+            var price;
+            var disc;
+            for(var i=0;i<bcats.length;i++)
+            {
+                if(bcats[i].checked)
+                {
+                    bcat=bcats[i].value;
+                }
+            }
+            var bcount=document.getElementById("bookval").value;
+            bcount=parseInt(bcount);
+            if(bcat=="Science"||"English")
+            {
+                price=400;
+                if(bcount<=250)
+                {
+                    disc=5;
+                }
+                else{
+                    disc=7;
+                }
+            }
+            else{
+                price=300;
+                if(bcount<=250)
+                {
+                    disc=3;
+                }
+                else{
+                    disc=4;
+                }
+            }
+            var tot=bcount*price-((bcount*price*disc)/100);
+            document.getElementById("result").innerHTML="Total Price is:"+tot;
+        }
+
+    </script>
+    </head>
+    <body>
+        <h1>Book Inventory Management</h1>
+        <form name="form">
+            <table>
+                <tr>
+                    <td>Book Name</td>
+                    <td><input type="text" name="Book Name" placeholder="Enter the Book Name" pattern="[a-zA-Z\s]+" required></td>
+                </tr>
+
+                <tr>
+                    <td>ID</td>
+                    <td><input type="tel" name="ID" placeholder="Enter the Customer Id" pattern="[89][0-9]{9}" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        Book Category
+                    </td>
+                    <td>
+                        <input type="radio" name="bookCategory" value="Science" required>Science
+                        <input type="radio" name="bookCategory" value="Comics"  required>Comics
+			<input type="radio" name="bookCategory" value="English" required>English
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>
+                        <input list="bookTypes" name="bookType" required auto-complete >
+                        <datalist id="bookTypes" >
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Fortnightly">Fortnightly</option>
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>No of Books Required</td>
+                    <td><input type="range" name="bookCount" id="bookval" min="1" max="500" value="1" oninput="markOutputId.value=bookval.value">
+                    <output name="markOutputName" id="markOutputId"></output></td>
+                </tr>
+                <tr>
+                    <td><input type="button" name="submit" value="Calculate Total Price" onclick="validate()"></td>
+                    <td><input type="reset" name="reset" ></td>
+                </tr>
+            </table>
+            </form>
+            <div id="result"></div>
+
+    </body>
+</html>
